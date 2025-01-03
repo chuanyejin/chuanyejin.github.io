@@ -8,7 +8,7 @@
         <language>zh-cn</language>
         <copyright>chuanyejin</copyright>
         <lastBuildDate>Tue, 28 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://chuanyejin.github.io/page/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>归档</title>
+        <title>四十四次日落</title>
         <link>https://chuanyejin.github.io/archives/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
@@ -16,20 +16,11 @@
         <description></description>
         </item>
         <item>
-        <title>关于</title>
-        <link>https://chuanyejin.github.io/%E5%85%B3%E4%BA%8E/</link>
+        <title>325行星</title>
+        <link>https://chuanyejin.github.io/325%E8%A1%8C%E6%98%9F/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://chuanyejin.github.io/%E5%85%B3%E4%BA%8E/</guid>
-        <description>&lt;p&gt;This is a test page for i18n support.&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>链接</title>
-        <link>https://chuanyejin.github.io/%E9%93%BE%E6%8E%A5/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://chuanyejin.github.io/%E9%93%BE%E6%8E%A5/</guid>
+        <guid>https://chuanyejin.github.io/325%E8%A1%8C%E6%98%9F/</guid>
         <description>&lt;p&gt;To use this feature, add &lt;code&gt;links&lt;/code&gt; section to frontmatter.&lt;/p&gt;
 &lt;p&gt;This page&amp;rsquo;s frontmatter:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -60,12 +51,21 @@
 </description>
         </item>
         <item>
-        <title>搜索</title>
+        <title>麦田的颜色</title>
         <link>https://chuanyejin.github.io/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
         <guid>https://chuanyejin.github.io/search/</guid>
         <description></description>
+        </item>
+        <item>
+        <title>我有点像大人了</title>
+        <link>https://chuanyejin.github.io/%E6%88%91%E6%9C%89%E7%82%B9%E5%83%8F%E5%A4%A7%E4%BA%BA%E4%BA%86/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://chuanyejin.github.io/%E6%88%91%E6%9C%89%E7%82%B9%E5%83%8F%E5%A4%A7%E4%BA%BA%E4%BA%86/</guid>
+        <description>&lt;p&gt;This is a test page for i18n support.&lt;/p&gt;
+</description>
         </item>
         
     </channel>
