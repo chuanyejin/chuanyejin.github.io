@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://chuanyejin.github.io/</loc>
-    <lastmod>2025-01-03T13:51:00+08:00</lastmod>
+    <lastmod>2025-01-03T16:02:29+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -15,11 +15,11 @@
                 href="https://chuanyejin.github.io/"
                 />
   </url><url>
-    <loc>https://chuanyejin.github.io/p/myfirstblog/</loc>
-    <lastmod>2025-01-03T13:51:00+08:00</lastmod>
+    <loc>https://chuanyejin.github.io/p/666/</loc>
+    <lastmod>2025-01-03T16:02:29+08:00</lastmod>
   </url><url>
     <loc>https://chuanyejin.github.io/post/</loc>
-    <lastmod>2025-01-03T13:51:00+08:00</lastmod>
+    <lastmod>2025-01-03T16:02:29+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -30,6 +30,9 @@
                 hreflang="zh-cn"
                 href="https://chuanyejin.github.io/post/"
                 />
+  </url><url>
+    <loc>https://chuanyejin.github.io/p/myfirstblog/</loc>
+    <lastmod>2025-01-03T13:51:00+08:00</lastmod>
   </url><url>
     <loc>https://chuanyejin.github.io/categories/</loc>
     <lastmod>2020-09-09T00:00:00+00:00</lastmod>
