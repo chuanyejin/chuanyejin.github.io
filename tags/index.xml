@@ -2,65 +2,65 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Tags on chuanyejin</title>
-        <link>https://chuanyejin.github.io/tags/</link>
+        <link>/tags/</link>
         <description>Recent content in Tags on chuanyejin</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>chuanyejin</copyright>
-        <lastBuildDate>Sat, 04 Jan 2025 21:16:03 +0800</lastBuildDate><atom:link href="https://chuanyejin.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 04 Jan 2025 21:16:03 +0800</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Css</title>
-        <link>https://chuanyejin.github.io/tags/css/</link>
+        <link>/tags/css/</link>
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://chuanyejin.github.io/tags/css/</guid>
+        <guid>/tags/css/</guid>
         <description></description>
         </item>
         <item>
         <title>Html</title>
-        <link>https://chuanyejin.github.io/tags/html/</link>
+        <link>/tags/html/</link>
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://chuanyejin.github.io/tags/html/</guid>
+        <guid>/tags/html/</guid>
         <description></description>
         </item>
         <item>
         <title>Markdown</title>
-        <link>https://chuanyejin.github.io/tags/markdown/</link>
+        <link>/tags/markdown/</link>
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://chuanyejin.github.io/tags/markdown/</guid>
+        <guid>/tags/markdown/</guid>
         <description></description>
         </item>
         <item>
         <title>Themes</title>
-        <link>https://chuanyejin.github.io/tags/themes/</link>
+        <link>/tags/themes/</link>
         <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://chuanyejin.github.io/tags/themes/</guid>
+        <guid>/tags/themes/</guid>
         <description></description>
         </item>
         <item>
         <title>Tag With Whitespaces</title>
-        <link>https://chuanyejin.github.io/tags/tag-with-whitespaces/</link>
+        <link>/tags/tag-with-whitespaces/</link>
         <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://chuanyejin.github.io/tags/tag-with-whitespaces/</guid>
+        <guid>/tags/tag-with-whitespaces/</guid>
         <description></description>
         </item>
         <item>
         <title>Text</title>
-        <link>https://chuanyejin.github.io/tags/text/</link>
+        <link>/tags/text/</link>
         <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://chuanyejin.github.io/tags/text/</guid>
+        <guid>/tags/text/</guid>
         <description></description>
         </item>
         <item>
         <title>Emoji</title>
-        <link>https://chuanyejin.github.io/tags/emoji/</link>
+        <link>/tags/emoji/</link>
         <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://chuanyejin.github.io/tags/emoji/</guid>
+        <guid>/tags/emoji/</guid>
         <description></description>
         </item>
         

@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Pages on chuanyejin</title>
-        <link>https://chuanyejin.github.io/page/</link>
+        <link>/page/</link>
         <description>Recent content in Pages on chuanyejin</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>chuanyejin</copyright>
-        <lastBuildDate>Sat, 04 Jan 2025 20:39:10 +0800</lastBuildDate><atom:link href="https://chuanyejin.github.io/page/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 04 Jan 2025 20:39:10 +0800</lastBuildDate><atom:link href="/page/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>四十四次日落</title>
-        <link>https://chuanyejin.github.io/archives/</link>
+        <link>/archives/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://chuanyejin.github.io/archives/</guid>
+        <guid>/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>325行星</title>
-        <link>https://chuanyejin.github.io/325%E8%A1%8C%E6%98%9F/</link>
+        <link>/325%E8%A1%8C%E6%98%9F/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://chuanyejin.github.io/325%E8%A1%8C%E6%98%9F/</guid>
+        <guid>/325%E8%A1%8C%E6%98%9F/</guid>
         <description>&lt;!-- To use this feature, add `links` section to frontmatter.
 
 This page&#39;s frontmatter:
@@ -41,18 +41,18 @@ links:
         </item>
         <item>
         <title>麦田的颜色</title>
-        <link>https://chuanyejin.github.io/search/</link>
+        <link>/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://chuanyejin.github.io/search/</guid>
+        <guid>/search/</guid>
         <description></description>
         </item>
         <item>
         <title>我有点像大人了</title>
-        <link>https://chuanyejin.github.io/%E6%88%91%E6%9C%89%E7%82%B9%E5%83%8F%E5%A4%A7%E4%BA%BA%E4%BA%86/</link>
+        <link>/%E6%88%91%E6%9C%89%E7%82%B9%E5%83%8F%E5%A4%A7%E4%BA%BA%E4%BA%86/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://chuanyejin.github.io/%E6%88%91%E6%9C%89%E7%82%B9%E5%83%8F%E5%A4%A7%E4%BA%BA%E4%BA%86/</guid>
+        <guid>/%E6%88%91%E6%9C%89%E7%82%B9%E5%83%8F%E5%A4%A7%E4%BA%BA%E4%BA%86/</guid>
         <description>&lt;p&gt;This is a test page for i18n support.&lt;/p&gt;
 </description>
         </item>
