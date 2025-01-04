@@ -1,18 +1,86 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
-  <sitemap>
-    <loc>https://chuanyejin.github.io/zh-cn/sitemap.xml</loc>
-    
-      <lastmod>2025-01-03T19:37:15+08:00</lastmod>
-    
-  </sitemap>
-  
-  <sitemap>
-    <loc>https://chuanyejin.github.io/en/sitemap.xml</loc>
-    
-      <lastmod>2025-01-03T15:43:31+08:00</lastmod>
-    
-  </sitemap>
-  
-</sitemapindex>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://chuanyejin.github.io/p/myfirstblog/</loc>
+    <lastmod>2025-01-03T15:43:31+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/post/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/categories/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/p/test-chinese/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/page/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/archives/</loc>
+    <lastmod>2025-01-03T19:37:15+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/tags/css/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/tags/html/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/tags/markdown/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/p/markdown-syntax-guide/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/tags/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/tags/themes/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/p/placeholder-text/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/tags/tag-with-whitespaces/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/tags/text/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/p/math-typesetting/</loc>
+    <lastmod>2025-01-03T15:43:31+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/tags/emoji/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/p/emoji-support/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/</loc>
+    <lastmod>2025-01-03T19:37:15+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/325%E8%A1%8C%E6%98%9F/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/categories/syntax/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/categories/test/</loc>
+    <lastmod>2025-01-03T15:43:31+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/categories/test-with-whitespaces/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/categories/themes/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/categories/%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2025-01-04T20:39:10+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/search/</loc>
+    <lastmod>2025-01-03T19:37:15+08:00</lastmod>
+  </url><url>
+    <loc>https://chuanyejin.github.io/%E6%88%91%E6%9C%89%E7%82%B9%E5%83%8F%E5%A4%A7%E4%BA%BA%E4%BA%86/</loc>
+    <lastmod>2025-01-03T19:37:15+08:00</lastmod>
+  </url>
+</urlset>
