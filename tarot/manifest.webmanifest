@@ -1,0 +1,10 @@
+{
+  "name": "Tarot · 纯抽牌",
+  "short_name": "Tarot",
+  "description": "一个只负责抽牌的极简塔罗 PWA。",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0d0d10",
+  "theme_color": "#0d0d10",
+  "lang": "zh-CN"
+}
