@@ -1,4 +1,4 @@
-const CACHE = 'tarot-draw-v1';
+const CACHE = 'tarot-draw-v2';
 const ASSETS = ['./', './index.html', './manifest.webmanifest'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
@@ -10,9 +10,9 @@ self.addEventListener('activate', e => {
 });
 self.addEventListener('fetch', e => {
   if(e.request.method !== 'GET') return;
-  e.respondWith(caches.match(e.request).then(hit => hit || fetch(e.request).then(resp => {
+  e.respondWith(fetch(e.request).then(resp => {
     const copy = resp.clone();
     caches.open(CACHE).then(cache => cache.put(e.request, copy));
     return resp;
-  }).catch(() => caches.match('./index.html'))));
+  }).catch(() => caches.match(e.request).then(hit => hit || caches.match('./index.html'))));
 });

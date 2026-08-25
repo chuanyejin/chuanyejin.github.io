@@ -1,154 +1,148 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0d0d10" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Tarot" />
-  <title>Tarot · 纯抽牌</title>
-  <link rel="manifest" href="manifest.webmanifest" />
-  <style>
-    :root {
-      --bg: #0d0d10;
-      --panel: rgba(255,255,255,.055);
-      --panel-strong: rgba(255,255,255,.085);
-      --text: #f5f2eb;
-      --muted: #aaa6a0;
-      --line: rgba(255,255,255,.12);
-      --gold: #d6ba79;
-      --shadow: 0 20px 70px rgba(0,0,0,.38);
-    }
-    * { box-sizing: border-box; }
-    html, body { min-height: 100%; }
-    body {
-      margin: 0;
-      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-      color: var(--text);
-      background: radial-gradient(circle at 20% -10%, rgba(214,186,121,.12), transparent 34%), radial-gradient(circle at 85% 15%, rgba(118,99,160,.10), transparent 30%), var(--bg);
-      min-height: 100svh;
-      overflow-x: hidden;
-    }
-    button, input { font: inherit; }
-    button { -webkit-tap-highlight-color: transparent; }
-    .app { width: min(100%, 980px); margin: 0 auto; min-height: 100svh; display: flex; flex-direction: column; padding: max(22px, env(safe-area-inset-top)) 18px max(22px, env(safe-area-inset-bottom)); }
-    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 4px 2px 22px; }
-    .brand { letter-spacing: .22em; text-transform: uppercase; font-size: 12px; color: var(--muted); }
-    .ghost { border: 1px solid var(--line); color: var(--text); background: rgba(255,255,255,.035); border-radius: 999px; padding: 9px 13px; cursor: pointer; transition: .2s ease; }
-    .ghost:active { transform: scale(.97); }
-    main { flex: 1; display: grid; place-items: center; }
-    .screen { width: 100%; display: none; animation: fade .32s ease; }
-    .screen.active { display: block; }
-    .hero { text-align: center; padding: 7vh 0 4vh; }
-    .moon { width: 68px; height: 68px; border: 1px solid rgba(214,186,121,.35); border-radius: 50%; display: grid; place-items: center; margin: 0 auto 28px; color: var(--gold); box-shadow: 0 0 50px rgba(214,186,121,.08) inset; font-size: 28px; }
-    h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-weight: 500; font-size: clamp(42px, 8vw, 74px); letter-spacing: -.035em; }
-    .subtitle { margin: 13px auto 0; color: var(--muted); max-width: 430px; line-height: 1.75; font-size: 14px; }
-    .mode-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; max-width: 640px; margin: 42px auto 0; }
-    .mode-card { text-align: left; background: var(--panel); border: 1px solid var(--line); border-radius: 24px; padding: 22px; color: var(--text); cursor: pointer; min-height: 150px; transition: .25s ease; box-shadow: var(--shadow); }
-    .mode-card:hover { transform: translateY(-2px); background: var(--panel-strong); }
-    .mode-card:active { transform: scale(.985); }
-    .mode-kicker { color: var(--gold); font-size: 12px; letter-spacing: .12em; }
-    .mode-title { font-size: 28px; font-family: Georgia, serif; margin-top: 20px; }
-    .mode-desc { color: var(--muted); font-size: 13px; margin-top: 6px; }
-    .settings { max-width: 640px; margin: 18px auto 0; display: flex; justify-content: center; gap: 10px; color: var(--muted); font-size: 13px; }
-    .toggle-row { display: inline-flex; align-items: center; gap: 9px; padding: 10px 13px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.025); }
-    .switch { width: 38px; height: 22px; border-radius: 999px; background: rgba(255,255,255,.12); position: relative; cursor: pointer; transition: .2s; }
-    .switch::after { content: ""; width: 16px; height: 16px; position: absolute; top: 3px; left: 3px; border-radius: 50%; background: #fff; transition: .2s; }
-    .switch.on { background: rgba(214,186,121,.55); }
-    .switch.on::after { left: 19px; }
-    .draw-wrap { padding: 2vh 0 1vh; text-align: center; }
-    .draw-title { font-family: Georgia, serif; font-size: clamp(28px, 5vw, 44px); margin-bottom: 8px; }
-    .draw-sub { color: var(--muted); font-size: 13px; margin-bottom: 26px; }
-    .deck-stage { position: relative; min-height: 340px; display: grid; place-items: center; perspective: 1100px; }
-    .deck { width: 178px; aspect-ratio: 2/3; position: relative; cursor: pointer; transition: transform .25s ease; }
-    .deck:hover { transform: translateY(-5px); }
-    .deck.shuffling { animation: shuffle .85s cubic-bezier(.2,.75,.25,1); }
-    .deck::before, .deck::after { content: ""; position: absolute; inset: 0; border-radius: 18px; border: 1px solid rgba(214,186,121,.22); background: #15151a; z-index: -1; }
-    .deck::before { transform: translate(8px, 7px) rotate(2.5deg); opacity: .75; }
-    .deck::after { transform: translate(-7px, 4px) rotate(-2deg); opacity: .55; }
-    .card-back { width: 100%; height: 100%; border: 1px solid rgba(214,186,121,.38); border-radius: 18px; background: radial-gradient(circle at 50% 50%, rgba(214,186,121,.2) 0 2px, transparent 3px), repeating-radial-gradient(circle at 50% 50%, transparent 0 19px, rgba(214,186,121,.08) 20px 21px), linear-gradient(145deg, #141419, #0b0b0e); display: grid; place-items: center; box-shadow: 0 28px 70px rgba(0,0,0,.45), inset 0 0 0 8px #0f0f13, inset 0 0 0 9px rgba(214,186,121,.16); }
-    .back-symbol { width: 72px; height: 72px; border: 1px solid rgba(214,186,121,.48); border-radius: 50%; display: grid; place-items: center; color: var(--gold); font-size: 24px; }
-    .tap-hint { margin-top: 19px; color: var(--muted); font-size: 12px; letter-spacing: .08em; }
-    .result-grid { display: grid; gap: 18px; justify-content: center; align-items: start; margin: 18px auto 24px; }
-    .result-grid.one { grid-template-columns: minmax(0, 236px); }
-    .result-grid.three { grid-template-columns: repeat(3, minmax(0, 220px)); max-width: 760px; }
-    .result-item { min-width: 0; }
-    .slot-label { color: var(--muted); font-size: 11px; letter-spacing: .18em; margin-bottom: 10px; text-transform: uppercase; height: 16px; }
-    .tarot-card { width: 100%; aspect-ratio: 2/3; perspective: 1000px; opacity: 0; transform: translateY(16px) scale(.98); animation: cardIn .5s ease forwards; }
-    .tarot-card:nth-child(2) { animation-delay: .08s; }
-    .tarot-card:nth-child(3) { animation-delay: .16s; }
-    .card-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .82s cubic-bezier(.18,.7,.22,1); }
-    .tarot-card.flipped .card-inner { transform: rotateY(180deg); }
-    .face { position: absolute; inset: 0; border-radius: 18px; backface-visibility: hidden; overflow: hidden; }
-    .front { transform: rotateY(180deg); border: 1px solid rgba(214,186,121,.28); background: radial-gradient(circle at 50% 26%, rgba(214,186,121,.11), transparent 28%), linear-gradient(160deg,#f4efe2 0%, #d9cfbb 100%); color: #161513; padding: 13px; display: flex; flex-direction: column; box-shadow: 0 22px 50px rgba(0,0,0,.28); }
-    .front.reversed .front-content { transform: rotate(180deg); }
-    .front-content { height: 100%; display: flex; flex-direction: column; transition: .3s; }
-    .front-top { font-family: Georgia, serif; font-size: 11px; letter-spacing: .07em; display:flex; justify-content:space-between; }
-    .art { flex: 1; margin: 11px 0; border: 1px solid rgba(22,21,19,.22); display: grid; place-items: center; position: relative; overflow: hidden; background: radial-gradient(circle at 50% 45%, rgba(22,21,19,.05), transparent 35%), linear-gradient(180deg, rgba(255,255,255,.35), rgba(22,21,19,.04)); }
-    .art::before { content: ""; position: absolute; width: 78%; aspect-ratio: 1; border: 1px solid rgba(22,21,19,.12); border-radius: 50%; }
-    .art-symbol { font-size: clamp(46px, 8vw, 76px); z-index: 1; font-family: Georgia, serif; }
-    .front-name { font-family: Georgia, serif; font-size: clamp(16px, 2.6vw, 22px); text-align: center; }
-    .front-cn { margin-top: 4px; font-size: 12px; text-align: center; opacity:.72; }
-    .result-meta { margin-top: 10px; text-align: center; font-size: 12px; color: var(--muted); }
-    .orientation { color: var(--gold); }
-    .actions { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
-    .primary { border: 0; background: var(--text); color: #111; border-radius: 999px; padding: 12px 18px; cursor: pointer; transition: .2s; font-weight: 600; }
-    .primary:active { transform: scale(.97); }
-    .footer-note { text-align:center; color: #716e68; font-size: 11px; padding-top: 26px; }
-    @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity:1; transform:none; } }
-    @keyframes cardIn { to { opacity:1; transform:none; } }
-    @keyframes shuffle { 0%,100% { transform: translateX(0) rotate(0); } 18% { transform: translateX(-42px) rotate(-6deg); } 36% { transform: translateX(38px) rotate(5deg); } 54% { transform: translateX(-24px) rotate(-3deg); } 72% { transform: translateX(18px) rotate(2deg); } }
-    @media (max-width: 720px) {
-      .mode-grid { grid-template-columns: 1fr; max-width: 440px; }
-      .mode-card { min-height: 128px; }
-      .result-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: calc(100vw - 24px); }
-      .slot-label { font-size: 9px; letter-spacing:.08em; }
-      .front { padding: 7px; border-radius: 11px; }
-      .face { border-radius: 11px; }
-      .front-top { font-size: 7px; }
-      .art { margin: 6px 0; }
-      .art-symbol { font-size: clamp(28px, 10vw, 44px); }
-      .front-name { font-size: clamp(10px, 3.4vw, 14px); }
-      .front-cn { font-size: 9px; }
-      .result-meta { font-size: 10px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0b0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tarot">
+<title>Tarot · 纯抽牌</title>
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--bg:#0b0b0f;--ink:#f3efe6;--muted:#9d9890;--gold:#d4b875;--line:rgba(255,255,255,.12);--panel:rgba(255,255,255,.045);--card:#131319}
+*{box-sizing:border-box}html,body{min-height:100%;scroll-behavior:smooth}body{margin:0;background:
+radial-gradient(circle at 16% -10%,rgba(212,184,117,.13),transparent 32%),
+radial-gradient(circle at 88% 20%,rgba(108,91,145,.10),transparent 27%),var(--bg);
+color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Helvetica Neue",Arial,sans-serif;overflow-x:hidden}
+button{font:inherit}.app{min-height:100svh;width:min(100%,1080px);margin:auto;padding:max(18px,env(safe-area-inset-top)) 16px max(22px,env(safe-area-inset-bottom));display:flex;flex-direction:column}
+header{height:48px;display:flex;align-items:center;justify-content:space-between}.brand{font-size:11px;letter-spacing:.24em;color:#858078;text-transform:uppercase}.ghost,.primary{border-radius:999px;padding:10px 15px;cursor:pointer;transition:.2s}.ghost{border:1px solid var(--line);background:rgba(255,255,255,.025);color:var(--ink)}.primary{border:0;background:var(--ink);color:#111;font-weight:650}.ghost:active,.primary:active{transform:scale(.97)}
+main{flex:1;display:grid;place-items:center;width:100%}.screen{display:none;width:100%;animation:fade .35s ease}.screen.active{display:block}
+.hero{text-align:center;padding:6vh 0 4vh}.sigil{width:72px;height:72px;border-radius:50%;border:1px solid rgba(212,184,117,.34);display:grid;place-items:center;margin:0 auto 28px;color:var(--gold);font:30px Georgia,serif;box-shadow:inset 0 0 50px rgba(212,184,117,.06)}
+h1,.title{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.035em}.hero h1{font-size:clamp(42px,8vw,72px);margin:0}.sub{color:var(--muted);font-size:13px;line-height:1.8}.hero .sub{max-width:430px;margin:14px auto 0}
+.modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;max-width:640px;margin:38px auto 0}.mode{color:var(--ink);text-align:left;border:1px solid var(--line);background:var(--panel);border-radius:23px;padding:22px;min-height:142px;cursor:pointer;transition:.25s}.mode:hover{transform:translateY(-2px);background:rgba(255,255,255,.07)}.mode:active{transform:scale(.985)}.eyebrow{font-size:10px;color:var(--gold);letter-spacing:.16em}.mode strong{display:block;font:28px Georgia,serif;font-weight:400;margin-top:19px}.mode span{display:block;color:var(--muted);font-size:12px;margin-top:7px}
+.setting{margin:17px auto 0;display:flex;justify-content:center}.setting-pill{border:1px solid var(--line);border-radius:999px;padding:9px 12px;display:flex;align-items:center;gap:9px;color:var(--muted);font-size:12px}.switch{width:38px;height:22px;border-radius:99px;background:rgba(255,255,255,.12);position:relative;cursor:pointer}.switch:after{content:"";width:16px;height:16px;border-radius:50%;background:#fff;position:absolute;left:3px;top:3px;transition:.2s}.switch.on{background:rgba(212,184,117,.55)}.switch.on:after{left:19px}
+.center{text-align:center;padding:2vh 0}.title{font-size:clamp(30px,5vw,46px);margin:0 0 8px}.instruction{color:var(--muted);font-size:13px;margin:0 auto 22px;min-height:22px}
+.deck-stage{min-height:355px;display:grid;place-items:center;perspective:1200px}.deck-wrap{text-align:center}.deck{width:184px;aspect-ratio:2/3;position:relative;margin:auto;cursor:pointer;transition:.25s}.deck:hover{transform:translateY(-4px)}.deck:before,.deck:after{content:"";position:absolute;inset:0;border:1px solid rgba(212,184,117,.22);background:#121218;border-radius:18px;z-index:-1}.deck:before{transform:translate(8px,7px) rotate(2deg)}.deck:after{transform:translate(-7px,4px) rotate(-2deg);opacity:.7}.deck.shuffling{animation:shuffle 1.05s cubic-bezier(.22,.75,.2,1)}
+.back{width:100%;height:100%;border-radius:18px;border:1px solid rgba(212,184,117,.38);background:
+radial-gradient(circle at 50% 50%,rgba(212,184,117,.22) 0 2px,transparent 3px),
+repeating-radial-gradient(circle at 50% 50%,transparent 0 18px,rgba(212,184,117,.07) 19px 20px),
+linear-gradient(145deg,#15151b,#09090c);display:grid;place-items:center;box-shadow:0 25px 65px rgba(0,0,0,.4),inset 0 0 0 7px #0e0e12,inset 0 0 0 8px rgba(212,184,117,.16)}
+.back i{font-style:normal;width:72px;height:72px;border:1px solid rgba(212,184,117,.45);border-radius:50%;display:grid;place-items:center;color:var(--gold);font-size:23px}.hint{margin-top:18px;color:#7e7971;font-size:10px;letter-spacing:.16em}
+.picks{display:flex;justify-content:center;gap:12px;margin:10px auto 22px;min-height:104px}.pick-slot{width:62px;aspect-ratio:2/3;border:1px dashed rgba(255,255,255,.15);border-radius:9px;position:relative;display:grid;place-items:center;color:#69655f;font-size:9px;letter-spacing:.1em}.pick-slot.filled{border-style:solid}.pick-slot .back{border-radius:8px;box-shadow:none}.pick-slot .back i{width:28px;height:28px;font-size:10px}.pick-label{position:absolute;top:calc(100% + 7px);white-space:nowrap;color:#78736d;font-size:9px}
+.spread-shell{width:100vw;margin-left:calc(50% - 50vw);position:relative}.spread-shell:before,.spread-shell:after{content:"";position:absolute;top:0;bottom:12px;width:48px;z-index:4;pointer-events:none}.spread-shell:before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}.spread-shell:after{right:0;background:linear-gradient(-90deg,var(--bg),transparent)}
+.spread{display:flex;align-items:flex-end;overflow-x:auto;overscroll-behavior-x:contain;padding:26px max(48px,calc((100vw - 86px)/2)) 34px;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;scroll-snap-type:x proximity}.spread::-webkit-scrollbar{display:none}
+.spread-card{flex:0 0 72px;aspect-ratio:2/3;margin-left:-36px;background:none;border:0;padding:0;position:relative;cursor:pointer;transition:transform .22s,opacity .22s;scroll-snap-align:center;filter:drop-shadow(0 12px 12px rgba(0,0,0,.2))}.spread-card:first-child{margin-left:0}.spread-card:nth-child(4n+1){transform:rotate(-2deg) translateY(3px)}.spread-card:nth-child(4n+2){transform:rotate(1deg)}.spread-card:nth-child(4n+3){transform:rotate(-.5deg) translateY(4px)}.spread-card:hover{z-index:3;transform:translateY(-14px) scale(1.05)}.spread-card.chosen{opacity:.12;pointer-events:none;transform:translateY(-24px)}.spread-card .back{border-radius:9px;box-shadow:0 9px 20px rgba(0,0,0,.24),inset 0 0 0 4px #0e0e12,inset 0 0 0 5px rgba(212,184,117,.14)}.spread-card .back i{width:31px;height:31px;font-size:10px}
+.reveal-row{display:flex;justify-content:center;margin-top:3px;min-height:42px}
+.results{display:grid;gap:17px;justify-content:center;align-items:start;margin:22px auto 26px}.results.one{grid-template-columns:minmax(0,235px)}.results.three{grid-template-columns:repeat(3,minmax(0,210px));max-width:740px}.result{min-width:0}.slot-name{font-size:9px;color:#8e8982;letter-spacing:.17em;height:20px;text-transform:uppercase}
+.tarot{width:100%;aspect-ratio:2/3;perspective:1100px}.inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.16,.72,.21,1)}.tarot.flip .inner{transform:rotateY(180deg)}.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:17px;overflow:hidden}.front{transform:rotateY(180deg);background:linear-gradient(160deg,#f4efe3,#d9cfbb);color:#151411;border:1px solid rgba(212,184,117,.3);padding:12px;box-shadow:0 25px 55px rgba(0,0,0,.3)}.front.reversed .content{transform:rotate(180deg)}.content{height:100%;display:flex;flex-direction:column}.top{display:flex;justify-content:space-between;font:10px Georgia,serif;letter-spacing:.08em}.art{flex:1;margin:10px 0;border:1px solid rgba(20,19,17,.2);display:grid;place-items:center;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(20,19,17,.04),transparent 35%),rgba(255,255,255,.18)}.art:before,.art:after{content:"";position:absolute;border:1px solid rgba(20,19,17,.11);border-radius:50%}.art:before{width:72%;aspect-ratio:1}.art:after{width:48%;aspect-ratio:1}.symbol{font:clamp(48px,8vw,74px) Georgia,serif;z-index:1}.name{font:clamp(15px,2.3vw,21px) Georgia,serif;text-align:center}.cn{text-align:center;font-size:11px;opacity:.68;margin-top:4px}.meta{text-align:center;color:var(--muted);font-size:11px;margin-top:9px}.meta em{font-style:normal;color:var(--gold)}
+.actions{display:flex;gap:9px;justify-content:center;flex-wrap:wrap}.footer{text-align:center;color:#635f59;font-size:10px;padding-top:25px}
+.toast{position:fixed;left:50%;bottom:max(28px,env(safe-area-inset-bottom));transform:translate(-50%,20px);background:rgba(24,24,29,.92);border:1px solid var(--line);border-radius:999px;padding:10px 14px;color:#d9d4cb;font-size:11px;opacity:0;pointer-events:none;transition:.25s;z-index:10;backdrop-filter:blur(12px)}.toast.show{opacity:1;transform:translate(-50%,0)}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}@keyframes shuffle{0%,100%{transform:none}15%{transform:translateX(-48px) rotate(-7deg)}30%{transform:translateX(43px) rotate(6deg)}45%{transform:translateX(-33px) rotate(-4deg)}60%{transform:translateX(29px) rotate(3deg)}76%{transform:translateX(-15px) rotate(-2deg)}}
+@media(max-width:720px){.modes{grid-template-columns:1fr;max-width:440px}.mode{min-height:125px}.results.three{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;width:calc(100vw - 22px)}.front{padding:6px;border-radius:10px}.face{border-radius:10px}.top{font-size:6px}.art{margin:5px 0}.symbol{font-size:clamp(26px,10vw,43px)}.name{font-size:clamp(9px,3.2vw,13px)}.cn{font-size:8px}.meta{font-size:9px}.slot-name{font-size:8px;letter-spacing:.08em}.spread-card:hover{transform:none}.hero{padding-top:4vh}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
 </head>
 <body>
-  <div class="app">
-    <header><div class="brand">Tarot Draw</div><button class="ghost" id="homeBtn" style="visibility:hidden">返回</button></header>
-    <main>
-      <section class="screen active" id="homeScreen">
-        <div class="hero">
-          <div class="moon">☾</div><h1>抽一张牌</h1><p class="subtitle">只负责抽牌，不替你解释。安静地想一个问题，然后选择你想要的牌阵。</p>
-          <div class="mode-grid">
-            <button class="mode-card" data-mode="one"><div class="mode-kicker">ONE CARD</div><div class="mode-title">单张</div><div class="mode-desc">适合一个念头、一个问题、一个当下。</div></button>
-            <button class="mode-card" data-mode="three"><div class="mode-kicker">THREE CARDS</div><div class="mode-title">三张</div><div class="mode-desc">过去 · 现在 · 未来</div></button>
-          </div>
-          <div class="settings"><div class="toggle-row"><span>启用逆位</span><div class="switch on" id="reverseSwitch" role="switch" aria-checked="true" tabindex="0"></div></div></div>
-        </div>
-      </section>
-      <section class="screen" id="drawScreen"><div class="draw-wrap"><div class="draw-title" id="drawTitle">单张抽牌</div><div class="draw-sub">在心里想好问题，然后点一下牌堆。</div><div class="deck-stage"><div><div class="deck" id="deck" aria-label="抽牌"><div class="card-back"><div class="back-symbol">✦</div></div></div><div class="tap-hint">TAP TO DRAW</div></div></div></div></section>
-      <section class="screen" id="resultScreen"><div class="draw-wrap"><div class="draw-title">你的牌</div><div class="draw-sub">看看它，然后自己决定它意味着什么。</div><div id="resultGrid" class="result-grid one"></div><div class="actions"><button class="primary" id="againBtn">重新抽牌</button><button class="ghost" id="changeModeBtn">换个牌阵</button></div></div></section>
-    </main>
-    <div class="footer-note">78-card tarot · local only · no login</div>
+<div class="app">
+<header><div class="brand">Tarot Draw</div><button class="ghost" id="backBtn" style="visibility:hidden">返回</button></header>
+<main>
+<section class="screen active" id="home">
+  <div class="hero"><div class="sigil">☾</div><h1>抽一张牌</h1><p class="sub">只负责抽牌，不替你解释。安静地想一个问题，然后选择你想要的牌阵。</p>
+  <div class="modes">
+    <button class="mode" data-mode="one"><div class="eyebrow">ONE CARD</div><strong>单张</strong><span>适合一个念头、一个问题、一个当下。</span></button>
+    <button class="mode" data-mode="three"><div class="eyebrow">THREE CARDS</div><strong>三张</strong><span>过去 · 现在 · 未来</span></button>
   </div>
+  <div class="setting"><div class="setting-pill"><span>启用逆位</span><div class="switch on" id="reverseSwitch" role="switch" tabindex="0" aria-checked="true"></div></div></div></div>
+</section>
+
+<section class="screen" id="shuffle">
+  <div class="center"><h2 class="title" id="shuffleTitle">洗牌</h2><p class="instruction">想好问题。准备好以后，点一下牌堆。</p>
+  <div class="deck-stage"><div class="deck-wrap"><div class="deck" id="deck"><div class="back"><i>✦</i></div></div><div class="hint">TAP TO SHUFFLE</div></div></div></div>
+</section>
+
+<section class="screen" id="choose">
+  <div class="center"><h2 class="title">选一张</h2><p class="instruction" id="chooseInstruction">左右滑动牌面，凭直觉选一张。</p>
+  <div class="picks" id="picks"></div>
+  <div class="spread-shell"><div class="spread" id="spread"></div></div>
+  <div class="reveal-row"><button class="primary" id="revealBtn" style="display:none">揭开牌面</button></div></div>
+</section>
+
+<section class="screen" id="result">
+  <div class="center"><h2 class="title">你的牌</h2><p class="instruction">看一会儿，再决定它对你意味着什么。</p>
+  <div class="results one" id="results"></div>
+  <div class="actions"><button class="primary" id="againBtn">重新洗牌</button><button class="ghost" id="modeBtn">换个牌阵</button></div></div>
+</section>
+</main>
+<div class="footer">78-card tarot · no login · no reading</div>
+</div>
+<div class="toast" id="toast"></div>
 <script>
-const major = [["The Fool","愚者","0","☀"],["The Magician","魔术师","I","✦"],["The High Priestess","女祭司","II","☾"],["The Empress","皇后","III","❀"],["The Emperor","皇帝","IV","♜"],["The Hierophant","教皇","V","✣"],["The Lovers","恋人","VI","♡"],["The Chariot","战车","VII","✧"],["Strength","力量","VIII","∞"],["The Hermit","隐者","IX","☼"],["Wheel of Fortune","命运之轮","X","◉"],["Justice","正义","XI","⚖"],["The Hanged Man","倒吊人","XII","⌁"],["Death","死神","XIII","✝"],["Temperance","节制","XIV","⚗"],["The Devil","恶魔","XV","♄"],["The Tower","高塔","XVI","⚡"],["The Star","星星","XVII","☆"],["The Moon","月亮","XVIII","☽"],["The Sun","太阳","XIX","☀"],["Judgement","审判","XX","♩"],["The World","世界","XXI","◎"]].map(([name,cn,rank,symbol],i)=>({id:`M${i}`,name,cn,rank,symbol}));
-const suits = [{en:"Wands",cn:"权杖",symbol:"♢"},{en:"Cups",cn:"圣杯",symbol:"♧"},{en:"Swords",cn:"宝剑",symbol:"†"},{en:"Pentacles",cn:"星币",symbol:"✦"}];
-const ranks = [["Ace","王牌","A"],["Two","二","2"],["Three","三","3"],["Four","四","4"],["Five","五","5"],["Six","六","6"],["Seven","七","7"],["Eight","八","8"],["Nine","九","9"],["Ten","十","10"],["Page","侍从","P"],["Knight","骑士","N"],["Queen","王后","Q"],["King","国王","K"]];
-const minor = suits.flatMap((s,si)=>ranks.map(([ren,rcn,mark],ri)=>({id:`m${si}-${ri}`,name:`${ren} of ${s.en}`,cn:`${s.cn}${rcn}`,rank:mark,symbol:s.symbol})));
-const cards=[...major,...minor]; let mode="one"; let reverseEnabled=true;
-const screens={home:document.getElementById('homeScreen'),draw:document.getElementById('drawScreen'),result:document.getElementById('resultScreen')}; const homeBtn=document.getElementById('homeBtn'); const reverseSwitch=document.getElementById('reverseSwitch'); const deck=document.getElementById('deck'); const drawTitle=document.getElementById('drawTitle'); const resultGrid=document.getElementById('resultGrid');
-function showScreen(name){Object.values(screens).forEach(s=>s.classList.remove('active'));screens[name].classList.add('active');homeBtn.style.visibility=name==='home'?'hidden':'visible';window.scrollTo({top:0,behavior:'smooth'});}
-function setReverse(value){reverseEnabled=value;reverseSwitch.classList.toggle('on',value);reverseSwitch.setAttribute('aria-checked',String(value));localStorage.setItem('tarot-reversed',value?'1':'0');}
-function shuffleArray(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function drawCards(count){return shuffleArray(cards).slice(0,count).map(card=>({...card,reversed:reverseEnabled?Math.random()<0.5:false}));}
-function cardHTML(card,index){const slot=mode==='three'?['过去','现在','未来'][index]:'';return `<div class="result-item"><div class="slot-label">${slot}</div><div class="tarot-card" style="animation-delay:${index*90}ms"><div class="card-inner"><div class="face card-back"><div class="back-symbol">✦</div></div><div class="face front ${card.reversed?'reversed':''}"><div class="front-content"><div class="front-top"><span>${card.rank}</span><span>${card.symbol}</span></div><div class="art"><div class="art-symbol">${card.symbol}</div></div><div class="front-name">${card.name}</div><div class="front-cn">${card.cn}</div></div></div></div></div><div class="result-meta"><span class="orientation">${card.reversed?'逆位':'正位'}</span></div></div>`;}
-function performDraw(){if(deck.classList.contains('shuffling'))return;deck.classList.add('shuffling');setTimeout(()=>{const count=mode==='three'?3:1;const chosen=drawCards(count);resultGrid.className=`result-grid ${mode}`;resultGrid.innerHTML=chosen.map(cardHTML).join('');showScreen('result');requestAnimationFrame(()=>{document.querySelectorAll('.tarot-card').forEach((el,i)=>{setTimeout(()=>el.classList.add('flipped'),180+i*180);});});deck.classList.remove('shuffling');},780);}
-document.querySelectorAll('.mode-card').forEach(btn=>btn.addEventListener('click',()=>{mode=btn.dataset.mode;drawTitle.textContent=mode==='one'?'单张抽牌':'三张抽牌';showScreen('draw');}));
-reverseSwitch.addEventListener('click',()=>setReverse(!reverseEnabled)); reverseSwitch.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setReverse(!reverseEnabled);}}); deck.addEventListener('click',performDraw); document.getElementById('againBtn').addEventListener('click',()=>showScreen('draw')); document.getElementById('changeModeBtn').addEventListener('click',()=>showScreen('home')); homeBtn.addEventListener('click',()=>showScreen('home')); const savedReverse=localStorage.getItem('tarot-reversed'); if(savedReverse!==null)setReverse(savedReverse==='1'); if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+const major=[["The Fool","愚者","0","☀"],["The Magician","魔术师","I","✦"],["The High Priestess","女祭司","II","☾"],["The Empress","皇后","III","❀"],["The Emperor","皇帝","IV","♜"],["The Hierophant","教皇","V","✣"],["The Lovers","恋人","VI","♡"],["The Chariot","战车","VII","✧"],["Strength","力量","VIII","∞"],["The Hermit","隐者","IX","☼"],["Wheel of Fortune","命运之轮","X","◉"],["Justice","正义","XI","⚖"],["The Hanged Man","倒吊人","XII","⌁"],["Death","死神","XIII","✝"],["Temperance","节制","XIV","⚗"],["The Devil","恶魔","XV","♄"],["The Tower","高塔","XVI","⚡"],["The Star","星星","XVII","☆"],["The Moon","月亮","XVIII","☽"],["The Sun","太阳","XIX","☀"],["Judgement","审判","XX","♩"],["The World","世界","XXI","◎"]].map(([name,cn,rank,symbol],i)=>({id:"M"+i,name,cn,rank,symbol}));
+const suits=[["Wands","权杖","♢"],["Cups","圣杯","♧"],["Swords","宝剑","†"],["Pentacles","星币","✦"]];
+const ranks=[["Ace","王牌","A"],["Two","二","2"],["Three","三","3"],["Four","四","4"],["Five","五","5"],["Six","六","6"],["Seven","七","7"],["Eight","八","8"],["Nine","九","9"],["Ten","十","10"],["Page","侍从","P"],["Knight","骑士","N"],["Queen","王后","Q"],["King","国王","K"]];
+const minor=suits.flatMap(([se,sc,sy],si)=>ranks.map(([re,rc,mark],ri)=>({id:`m${si}-${ri}`,name:`${re} of ${se}`,cn:`${sc}${rc}`,rank:mark,symbol:sy})));
+const cards=[...major,...minor];
+let mode="one",reverseEnabled=true,deckOrder=[],picked=[],busy=false;
+const $=id=>document.getElementById(id),screens=["home","shuffle","choose","result"],labels=["过去","现在","未来"];
+
+function show(id){screens.forEach(x=>$(x).classList.toggle("active",x===id));$("backBtn").style.visibility=id==="home"?"hidden":"visible";window.scrollTo({top:0,behavior:"smooth"})}
+function shuffleArray(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function vibrate(ms=18){if(navigator.vibrate)navigator.vibrate(ms)}
+function toast(t){$("toast").textContent=t;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),900)}
+function setReverse(v){reverseEnabled=v;$("reverseSwitch").classList.toggle("on",v);$("reverseSwitch").setAttribute("aria-checked",String(v));localStorage.setItem("tarot-reversed",v?"1":"0")}
+function backMarkup(){return '<div class="back"><i>✦</i></div>'}
+
+function begin(){
+  picked=[];deckOrder=[];$("shuffleTitle").textContent=mode==="one"?"洗牌":"洗牌 · 三张";show("shuffle");
+}
+function doShuffle(){
+  if(busy)return;busy=true;vibrate(25);$("deck").classList.add("shuffling");
+  setTimeout(()=>{
+    deckOrder=shuffleArray(cards).map(c=>({...c,reversed:reverseEnabled?Math.random()<.5:false}));
+    $("deck").classList.remove("shuffling");busy=false;renderSpread();show("choose");
+    requestAnimationFrame(()=>{$("spread").scrollLeft=Math.max(0,($("spread").scrollWidth-$("spread").clientWidth)/2-150)});
+  },1050);
+}
+function renderPicks(){
+  const count=mode==="three"?3:1;
+  $("picks").innerHTML=Array.from({length:count},(_,i)=>{
+    const filled=!!picked[i],lab=mode==="three"?labels[i]:"已选择";
+    return `<div class="pick-slot ${filled?"filled":""}">${filled?backMarkup():""}<span class="pick-label">${lab}</span></div>`
+  }).join("");
+}
+function renderSpread(){
+  renderPicks();$("revealBtn").style.display="none";
+  $("chooseInstruction").textContent=mode==="one"?"左右滑动牌面，凭直觉选一张。":"选第 1 张 · 过去";
+  $("spread").innerHTML=deckOrder.map((_,i)=>`<button class="spread-card" data-i="${i}" aria-label="选择第 ${i+1} 张牌">${backMarkup()}</button>`).join("");
+  [...document.querySelectorAll(".spread-card")].forEach(el=>el.addEventListener("click",()=>pick(+el.dataset.i,el)));
+}
+function pick(i,el){
+  if(el.classList.contains("chosen"))return;
+  const need=mode==="three"?3:1;if(picked.length>=need)return;
+  picked.push(deckOrder[i]);el.classList.add("chosen");vibrate(22);renderPicks();
+  if(picked.length<need){
+    const next=picked.length;$("chooseInstruction").textContent=`选第 ${next+1} 张 · ${labels[next]}`;
+    toast(`已选 ${labels[next-1]}`);
+  }else{
+    $("chooseInstruction").textContent=mode==="one"?"这就是你的牌。":"三张牌已经选好。";
+    $("revealBtn").style.display="inline-block";
+    if(mode==="one")setTimeout(reveal,420);
+  }
+}
+function resultMarkup(c,i){
+ const slot=mode==="three"?labels[i]:"";
+ return `<div class="result"><div class="slot-name">${slot}</div><div class="tarot"><div class="inner"><div class="face">${backMarkup()}</div><div class="face front ${c.reversed?"reversed":""}"><div class="content"><div class="top"><span>${c.rank}</span><span>${c.symbol}</span></div><div class="art"><div class="symbol">${c.symbol}</div></div><div class="name">${c.name}</div><div class="cn">${c.cn}</div></div></div></div></div><div class="meta"><em>${c.reversed?"逆位":"正位"}</em></div></div>`;
+}
+function reveal(){
+  if(!picked.length)return;vibrate(35);$("results").className="results "+mode;$("results").innerHTML=picked.map(resultMarkup).join("");show("result");
+  requestAnimationFrame(()=>document.querySelectorAll(".tarot").forEach((el,i)=>setTimeout(()=>el.classList.add("flip"),180+i*240)));
+}
+document.querySelectorAll(".mode").forEach(b=>b.addEventListener("click",()=>{mode=b.dataset.mode;begin()}));
+$("deck").addEventListener("click",doShuffle);$("revealBtn").addEventListener("click",reveal);$("againBtn").addEventListener("click",begin);$("modeBtn").addEventListener("click",()=>show("home"));$("backBtn").addEventListener("click",()=>show("home"));
+$("reverseSwitch").addEventListener("click",()=>setReverse(!reverseEnabled));$("reverseSwitch").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();setReverse(!reverseEnabled)}});
+const saved=localStorage.getItem("tarot-reversed");if(saved!==null)setReverse(saved==="1");
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 </script>
 </body>
 </html>
