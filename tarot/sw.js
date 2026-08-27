@@ -1,4 +1,4 @@
-const CACHE = 'tarot-draw-v2';
+const CACHE = 'snoopy-tarot-v3';
 const ASSETS = ['./', './index.html', './manifest.webmanifest'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));
